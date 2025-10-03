@@ -13,4 +13,6 @@ distance = np.linalg.norm(dot)
 
 cube_np = np.linalg.matrix_power(A,2)
 
-print(cube_np)
+A = A.__invert__
+
+print(A)
