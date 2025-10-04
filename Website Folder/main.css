@@ -1,0 +1,12 @@
+img {
+    width: 250px;
+    border-radius: 10px;
+    float: left;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+em.cutie {
+    font-weight: bold;
+    font-style: normal;
+}
