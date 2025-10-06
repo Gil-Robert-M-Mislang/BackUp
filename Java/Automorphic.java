@@ -13,6 +13,13 @@ public class Automorphic {
         int intRemainder = 0;
         int intResult = 0;
 
+        if(intSquare == 1)
+        {
+            System.out.println("It is an Automorphic");
+            newInput.close();
+            return;
+        }
+
         while(intSquare >= 10)
         {
             intRemainder = intSquare%10;
@@ -31,11 +38,13 @@ public class Automorphic {
             if(intResult == intNumber)
             {
                 System.out.println("It is an Automorphic");
+                newInput.close();
                 return;
             }
         }
 
         System.out.println("It is not an Automorphic");
+        newInput.close();
         return;
     }
 }
