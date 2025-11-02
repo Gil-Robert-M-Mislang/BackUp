@@ -70,7 +70,29 @@ class Application(QWidget):
                 widget.clear()
 
     def done_size(self):
-        print('Mama mo')
+        line_divider = QFrame(self)
+        line_divider.setFrameShape(QFrame.Shape.HLine)
+        line_divider.setFrameShadow(QFrame.Shadow.Sunken)
+        line_divider.setFixedHeight(20)
+        line_divider.setFixedWidth(550)
+        self.layout['main'].addWidget(line_divider, alignment = Qt.AlignmentFlag.AlignHCenter)
+
+        self.layout['input'] = QGridLayout()
+        self.layout['main'].addLayout(self.layout['input'])
+        row_input = int(self.line_edits['row'].text())
+        column_input = int(self.line_edits['column'].text())
+        #Cell width error (Hindi sya maganda and consistent)
+        width = int(600/column_input)
+        print(width)
+
+        for i in range(row_input):
+            for j in range(column_input):
+                self.line_edits['cells'] = QLineEdit()
+                self.line_edits['cells'].setFixedWidth(width)
+                self.line_edits['cells'].setStyleSheet('border: 1px solid black;')
+                self.layout['input'].addWidget(self.line_edits['cells'], i+2, j, 1, 3)
+
+
         
 
 
