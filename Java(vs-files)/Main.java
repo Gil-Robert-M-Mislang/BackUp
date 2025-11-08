@@ -14,6 +14,8 @@ class Main {
         System.out.print("\t\tPlease enter your choice: ");
         choice = newInput.nextInt();
 
+        System.err.println(choice);
+
         newInput.close();
     }
 }
