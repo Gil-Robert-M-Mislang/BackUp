@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton, QFrame, QHBoxLayout, QVBoxLayout, QGridLayout)
+from PyQt6.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton, QFrame, QHBoxLayout, QVBoxLayout, QGridLayout, QTableWidget)
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QIcon
 
@@ -23,6 +23,7 @@ class Application(QWidget):
         self.layout['main'] = QVBoxLayout()
         self.setLayout(self.layout['main'])
 
+        self.line_divide = None
         self.labels = {}
         self.combobox = {}
         self.line_edits = {}
@@ -32,15 +33,15 @@ class Application(QWidget):
     def init_ui(self):
         self.labels['form_title'] = QLabel('Reduced Row Echelon Form Calculator')
         self.labels['form_title'].setStyleSheet('font-size: 25px; color: #000000; font-weight: bold;')
-        self.layout['main'].addWidget(self.labels['form_title'])
+        self.layout['main'].addWidget(self.labels['form_title'], alignment = Qt.AlignmentFlag.AlignHCenter)
         
-        line_divider = QFrame(self)
-        line_divider.setFrameShape(QFrame.Shape.HLine)
-        line_divider.setFrameShadow(QFrame.Shadow.Sunken)
-        line_divider.setFixedHeight(20)
-        line_divider.setFixedWidth(550)
+        self.line_divider = QFrame(self)
+        self.line_divider.setFrameShape(QFrame.Shape.HLine)
+        self.line_divider.setFrameShadow(QFrame.Shadow.Sunken)
+        self.line_divider.setFixedHeight(20)
+        self.line_divider.setFixedWidth(550)
         
-        self.layout['main'].addWidget(line_divider, alignment = Qt.AlignmentFlag.AlignHCenter)
+        self.layout['main'].addWidget(self.line_divider, alignment = Qt.AlignmentFlag.AlignHCenter)
 
         self.layout['calculator'] = QGridLayout()
         self.layout['main'].addLayout(self.layout['calculator'])
@@ -54,47 +55,35 @@ class Application(QWidget):
         self.line_edits['column'] = QLineEdit()
         self.line_edits['row'].setFixedWidth(40)
         self.line_edits['column'].setFixedWidth(40)
-        self.layout['calculator'].addWidget(self.line_edits['row'], 1, 1, 1, 3)
-        self.layout['calculator'].addWidget(self.line_edits['column'], 1, 3, 1, 3)
-        self.layout['calculator'].addWidget(Label('Row'), 1, 0, 1, 3, alignment = Qt.AlignmentFlag.AlignLeft)
-        self.layout['calculator'].addWidget(Label('Column'), 1, 2, 1, 3, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.layout['calculator'].addWidget(self.line_edits['row'], 2, 1, 1, 3)
+        self.layout['calculator'].addWidget(self.line_edits['column'], 2, 3, 1, 3)
+        self.layout['calculator'].addWidget(Label('Row'), 2, 0, 1, 3, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.layout['calculator'].addWidget(Label('Column'), 2, 2, 1, 3, alignment = Qt.AlignmentFlag.AlignLeft)
 
         self.submit_button = QPushButton('&Enter', clicked = self.done_size)
         self.clear_button = QPushButton('&Clear', clicked = self.reset)
-        self.layout['calculator'].addWidget(self.submit_button, 1, 3, 1, 3, alignment = Qt.AlignmentFlag.AlignHCenter)
-        self.layout['calculator'].addWidget(self.clear_button, 1, 4, 1, 3, alignment = Qt.AlignmentFlag.AlignHCenter)
-    
+        self.layout['calculator'].addWidget(self.submit_button, 2, 3, 1, 3, alignment = Qt.AlignmentFlag.AlignHCenter)
+        self.layout['calculator'].addWidget(self.clear_button, 2, 4, 1, 3, alignment = Qt.AlignmentFlag.AlignHCenter)
+
     def reset(self):
         for widget in self.children():
             if isinstance(widget, QLineEdit):
                 widget.clear()
 
     def done_size(self):
-        line_divider = QFrame(self)
-        line_divider.setFrameShape(QFrame.Shape.HLine)
-        line_divider.setFrameShadow(QFrame.Shadow.Sunken)
-        line_divider.setFixedHeight(20)
-        line_divider.setFixedWidth(550)
-        self.layout['main'].addWidget(line_divider, alignment = Qt.AlignmentFlag.AlignHCenter)
+        if self.line_divide is None:
+            self.line_divide = QFrame(self)
+            self.line_divide.setFrameShape(QFrame.Shape.HLine)
+            self.line_divide.setFrameShadow(QFrame.Shadow.Sunken)
+            self.line_divide.setFixedHeight(20)
+            self.line_divide.setFixedWidth(550)
+            self.layout['main'].addWidget(self.line_divide, alignment = Qt.AlignmentFlag.AlignHCenter)
+            flag = 1
 
         self.layout['input'] = QGridLayout()
         self.layout['main'].addLayout(self.layout['input'])
         row_input = int(self.line_edits['row'].text())
         column_input = int(self.line_edits['column'].text())
-        #Cell width error (Hindi sya maganda and consistent)
-        width = int(600/column_input)
-        print(width)
-
-        for i in range(row_input):
-            for j in range(column_input):
-                self.line_edits['cells'] = QLineEdit()
-                self.line_edits['cells'].setFixedWidth(width)
-                self.line_edits['cells'].setStyleSheet('border: 1px solid black;')
-                self.layout['input'].addWidget(self.line_edits['cells'], i+2, j, 1, 3)
-
-
-        
-
 
 class AppWindow(QWidget):
     def __init__(self):

@@ -1,16 +1,23 @@
 import numpy as np
 
-#input matrix
-    #--> create a table for the input for great UI
-    #--> Input elements function
-    #--> Base the size of the table on inputs in rows and columns
+#I don't know what I'm doing, I'll answer leetcode na muna
 
-def main_input():
-    row = int(input("Enter the number of rows: "))
-    column = int(input("Enter the number of columns: "))
 
-    print("Enter the entries: ")
-    
+def process():
+    data = np.array([[1,2,3], [4,5,6]])
+    datas = [[0,0,0], [0,0,0]]
+    i = 0
+    j = 0
 
-main_input()
+    for row in data:
+        for column in row:
+            datas[j][i] = column
+            i += 1
+        j += 1
+        i = 0
+
+    for mase in datas:
+        print(*mase)
+
+process()
     
