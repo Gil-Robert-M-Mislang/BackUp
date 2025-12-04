@@ -4,7 +4,7 @@ public class Harshad{
     public static boolean main(String[] args) {
         int numbers = 0;
         int result = 0;
-
+        
         Scanner newInput = new Scanner(System.in);
 
         System.out.print("Please enter a number: ");
