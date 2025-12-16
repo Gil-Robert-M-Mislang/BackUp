@@ -28,13 +28,14 @@ selected_file = file_window()
 
 def removes_bg(path_input):
     file_name = os.path.splitext(os.path.basename(path_input))[0]
-    path_output = os.path.join(f"C:/Users/MSI/Desktop/Gil-VsCode/Gil-Files-main/Python/BG-Remover-Files/Image-Output/", f"{file_name}.png")
+    path_output = os.path.join("C:/Users/MSI/Desktop/Gil-VsCode/Gil-Files-main/Python/BG-Remover-Files/Image-Output/", f"{file_name}.png")
 
     input_open = Image.open(path_input)
     output_image = remove(input_open)
 
     output_image.save(path_output)
     Image.open(path_output)
+    os.startfile(path_output)
 
     return path_output
 
