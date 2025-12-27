@@ -18,15 +18,27 @@ def LI_tester(input):
         
         return True
     
-def Gram_Schmidt(input):
-    #gawin mo yung gram_schmidt here
+def Sum_Projection(input, size):
+    result_matrix = np.empty(size)
+
+    return result_matrix
+
+def Gram_Schmidt(input, size):
+    result_matrix = np.empty(size)
+
+    for i in range(size[0]):
+        for j in range(size[0]):
+            result_matrix[i]
+    #For loop in every row excluding first row
+    #Create another function that sums the gram schmidt
 
 def main():
     matrix = np.array([[1,1,-1,1],[-1,0,1,1],[0,-1,-1,2]])
+    matrix_size = matrix.shape
 
     independence = LI_tester(matrix)
     if independence == True:
-        Gram_Schmidt(matrix)
+        Gram_Schmidt(matrix, matrix_size)
     else:
         print("Input Error: The input is not linearly independent")
 
